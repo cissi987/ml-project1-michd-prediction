@@ -1,0 +1,995 @@
+{
+ "ablation": [
+  {
+   "label": "Raw features (median imputation)",
+   "config": {
+    "model": "logistic",
+    "lambda_": 1e-06,
+    "gamma": 0.5,
+    "max_iters": 300,
+    "drop_admin": false,
+    "clean": false,
+    "one_hot": false,
+    "interactions": false
+   },
+   "f1_mean": 0.41609368104839567,
+   "f1_std": 0.0013979890099144814,
+   "oof_f1": 0.41546222143663236,
+   "oof_acc": 0.8689838023984031,
+   "threshold": 0.2049999999999999,
+   "minutes": 3.923649787902832
+  },
+  {
+   "label": "+ drop admin. / duplicate columns",
+   "config": {
+    "model": "logistic",
+    "lambda_": 1e-06,
+    "gamma": 0.5,
+    "max_iters": 300,
+    "drop_admin": true,
+    "clean": false,
+    "one_hot": false,
+    "interactions": false
+   },
+   "f1_mean": 0.41610926486598226,
+   "f1_std": 0.0018660164677615759,
+   "oof_f1": 0.41536284953395475,
+   "oof_acc": 0.8715467719079038,
+   "threshold": 0.2099999999999999,
+   "minutes": 3.533105186621348
+  },
+  {
+   "label": "+ clean special & frequency codes, log",
+   "config": {
+    "model": "logistic",
+    "lambda_": 1e-06,
+    "gamma": 0.5,
+    "max_iters": 300,
+    "drop_admin": true,
+    "clean": true,
+    "one_hot": false,
+    "interactions": false
+   },
+   "f1_mean": 0.41773975319402695,
+   "f1_std": 0.001115193264006061,
+   "oof_f1": 0.41726442111005047,
+   "oof_acc": 0.8697731116765965,
+   "threshold": 0.2049999999999999,
+   "minutes": 3.4283359050750732
+  },
+  {
+   "label": "+ one-hot categorical features",
+   "config": {
+    "model": "logistic",
+    "lambda_": 1e-06,
+    "gamma": 0.5,
+    "max_iters": 300,
+    "interactions": false
+   },
+   "f1_mean": 0.43261776637779475,
+   "f1_std": 0.0014048375389764613,
+   "oof_f1": 0.43166130953143206,
+   "oof_acc": 0.864747741021226,
+   "threshold": 0.18499999999999994,
+   "minutes": 5.227732249101003
+  },
+  {
+   "label": "+ age / health interactions",
+   "config": {
+    "model": "logistic",
+    "lambda_": 1e-06,
+    "gamma": 0.5,
+    "max_iters": 300
+   },
+   "f1_mean": 0.4323485089809619,
+   "f1_std": 0.001608152775815768,
+   "oof_f1": 0.43125,
+   "oof_acc": 0.8674387066298932,
+   "threshold": 0.18999999999999995,
+   "minutes": 4.8
+  },
+  {
+   "label": "  class weights (positives x3)",
+   "config": {
+    "model": "logistic",
+    "lambda_": 1e-06,
+    "gamma": 0.15,
+    "max_iters": 600,
+    "pos_weight": 3.0
+   },
+   "f1_mean": 0.43222445094746237,
+   "f1_std": 0.0016024347831972087,
+   "oof_f1": 0.43116178350596157,
+   "oof_acc": 0.867109573803465,
+   "threshold": 0.4149999999999998,
+   "minutes": 11.247350605328878
+  },
+  {
+   "label": "Ensemble of 5 neural networks",
+   "config": {
+    "model": "mlp",
+    "mlp": {
+     "hidden": 64,
+     "epochs": 4,
+     "lr": 0.0005,
+     "dropout": 0.5,
+     "weight_decay": 0.0001
+    },
+    "n_nets": 5
+   },
+   "f1_mean": 0.4343209121134789,
+   "f1_std": 0.0020525383378391594,
+   "oof_f1": 0.4338709215388582,
+   "oof_acc": 0.8795434805796395,
+   "threshold": 0.2149999999999999,
+   "minutes": 10.3
+  },
+  {
+   "label": "Blend: logistic + 5 networks",
+   "config": {
+    "model": "blend",
+    "lambda_": 1e-06,
+    "gamma": 0.5,
+    "max_iters": 300,
+    "mlp": {
+     "hidden": 64,
+     "epochs": 4,
+     "lr": 0.0005,
+     "dropout": 0.5,
+     "weight_decay": 0.0001
+    },
+    "n_nets": 5
+   },
+   "f1_mean": 0.43351797194008757,
+   "f1_std": 0.0016270129669665393,
+   "oof_f1": 0.43298685206856197,
+   "oof_acc": 0.8744876346625626,
+   "threshold": 0.2049999999999999,
+   "minutes": 12.65420370499293
+  },
+  {
+   "label": "+ keep rare module questions (logistic)",
+   "config": {
+    "model": "logistic",
+    "lambda_": 1e-06,
+    "gamma": 0.5,
+    "max_iters": 300,
+    "max_nan": 1.0
+   },
+   "f1_mean": 0.44057883487256894,
+   "f1_std": 0.00137897399141595,
+   "oof_f1": 0.4394941153877809,
+   "oof_acc": 0.8754719856156765,
+   "threshold": 0.1999999999999999,
+   "minutes": 7.329407954216004
+  },
+  {
+   "label": "+ count features (logistic)",
+   "config": {
+    "model": "logistic",
+    "lambda_": 1e-06,
+    "gamma": 0.5,
+    "max_iters": 300,
+    "max_nan": 1.0,
+    "engineered": true
+   },
+   "f1_mean": 0.44058518906936034,
+   "f1_std": 0.0012068549614107594,
+   "oof_f1": 0.4394781248713833,
+   "oof_acc": 0.8754872232465296,
+   "threshold": 0.1999999999999999,
+   "minutes": 6.426856497923533
+  },
+  {
+   "label": "  Newton solver, lambda=1e-4 (logistic)",
+   "config": {
+    "model": "logistic",
+    "solver": "newton",
+    "lambda_": 0.0001,
+    "max_nan": 1.0,
+    "engineered": true
+   },
+   "f1_mean": 0.4398829336230549,
+   "f1_std": 0.0009179219436133366,
+   "oof_f1": 0.438970138464105,
+   "oof_acc": 0.8770140338580158,
+   "threshold": 0.2049999999999999,
+   "minutes": 9.5
+  },
+  {
+   "label": "5 neural networks, new features",
+   "config": {
+    "model": "mlp",
+    "mlp": {
+     "hidden": 64,
+     "epochs": 4,
+     "lr": 0.0005,
+     "dropout": 0.5,
+     "weight_decay": 0.0001
+    },
+    "n_nets": 5,
+    "max_nan": 1.0,
+    "engineered": true
+   },
+   "f1_mean": 0.442015702089952,
+   "f1_std": 0.001633050625897744,
+   "oof_f1": 0.44111451170555266,
+   "oof_acc": 0.8714462035442729,
+   "threshold": 0.19499999999999995,
+   "minutes": 7.2
+  },
+  {
+   "label": "  wider networks, cosine LR decay",
+   "config": {
+    "model": "mlp",
+    "mlp": {
+     "hidden": 128,
+     "epochs": 6,
+     "lr": 0.001,
+     "dropout": 0.5,
+     "weight_decay": 0.0001,
+     "cosine": true
+    },
+    "n_nets": 5,
+    "max_nan": 1.0,
+    "engineered": true
+   },
+   "f1_mean": 0.445674290035349,
+   "f1_std": 0.002098780500294178,
+   "oof_f1": 0.4450688236128849,
+   "oof_acc": 0.8808234415713045,
+   "threshold": 0.2149999999999999,
+   "minutes": 12.4
+  },
+  {
+   "label": "Gradient-boosted trees (NumPy)",
+   "config": {
+    "model": "gbdt",
+    "gbdt": {
+     "n_trees": 1000,
+     "learning_rate": 0.03,
+     "max_depth": 6,
+     "min_child_weight": 10.0,
+     "reg_lambda": 10.0,
+     "subsample": 0.7,
+     "colsample": 0.4,
+     "max_bins": 64
+    },
+    "n_models": 1
+   },
+   "f1_mean": 0.44755135347149466,
+   "f1_std": 0.002088953436134502,
+   "oof_f1": 0.44691588005505123,
+   "oof_acc": 0.8787541713014461,
+   "threshold": 0.2149999999999999,
+   "minutes": 35.67652555306753
+  },
+  {
+   "label": "Ensemble: networks + trees",
+   "config": {
+    "model": "ensemble",
+    "members": [
+     {
+      "model": "mlp",
+      "mlp": {
+       "hidden": 128,
+       "epochs": 6,
+       "lr": 0.001,
+       "dropout": 0.5,
+       "weight_decay": 0.0001,
+       "cosine": true
+      },
+      "n_nets": 5,
+      "max_nan": 1.0,
+      "engineered": true
+     },
+     {
+      "model": "gbdt",
+      "gbdt": {
+       "n_trees": 1000,
+       "learning_rate": 0.03,
+       "max_depth": 6,
+       "min_child_weight": 10.0,
+       "reg_lambda": 10.0,
+       "subsample": 0.7,
+       "colsample": 0.4,
+       "max_bins": 64
+      },
+      "n_models": 1
+     }
+    ],
+    "weights": [
+     0.5,
+     0.5
+    ]
+   },
+   "f1_mean": 0.4488631496431973,
+   "f1_std": 0.0014374454487561044,
+   "oof_f1": 0.44762667462978295,
+   "oof_acc": 0.8759809224861719,
+   "threshold": 0.2049999999999999,
+   "minutes": 0.009440282980600992
+  },
+  {
+   "label": "+ HAREHAB1 rule (final model)",
+   "config": {
+    "model": "ensemble",
+    "members": [
+     {
+      "model": "mlp",
+      "mlp": {
+       "hidden": 128,
+       "epochs": 6,
+       "lr": 0.001,
+       "dropout": 0.5,
+       "weight_decay": 0.0001,
+       "cosine": true
+      },
+      "n_nets": 5,
+      "max_nan": 1.0,
+      "engineered": true
+     },
+     {
+      "model": "gbdt",
+      "gbdt": {
+       "n_trees": 1000,
+       "learning_rate": 0.03,
+       "max_depth": 6,
+       "min_child_weight": 10.0,
+       "reg_lambda": 10.0,
+       "subsample": 0.7,
+       "colsample": 0.4,
+       "max_bins": 64
+      },
+      "n_models": 1
+     }
+    ],
+    "weights": [
+     0.5,
+     0.5
+    ],
+    "rehab_rule": true
+   },
+   "f1_mean": 0.4488631496431973,
+   "f1_std": 0.0014374454487561044,
+   "oof_f1": 0.44762667462978295,
+   "oof_acc": 0.8759809224861719,
+   "threshold": 0.2049999999999999,
+   "minutes": 0.008590173721313477
+  }
+ ],
+ "gbdt_trees": {
+  "50": 0.4300431499460626,
+  "100": 0.435886607909112,
+  "150": 0.4395080533694395,
+  "200": 0.44208393790894407,
+  "250": 0.44416729262036025,
+  "300": 0.4454194205811172,
+  "350": 0.44570782067600057,
+  "400": 0.4462753854633333,
+  "450": 0.44686488939640157,
+  "500": 0.44671364878469727,
+  "550": 0.4466620492741742,
+  "600": 0.44641953252940303,
+  "650": 0.4464421846007796,
+  "700": 0.4465053684795647,
+  "750": 0.4466519076507288,
+  "800": 0.4468100145609794,
+  "850": 0.446767514091798,
+  "900": 0.4465934314515559,
+  "950": 0.4466099058071451,
+  "1000": 0.44691588005505123
+ },
+ "gbdt_importance": {
+  "_STATE": 574.5999999999999,
+  "PVTRESD1": 4.0,
+  "CELLFON3": 107.4,
+  "LADULT": 0.0,
+  "NUMADULT": 169.8,
+  "NUMMEN": 164.60000000000002,
+  "NUMWOMEN": 130.4,
+  "CADULT": 73.4,
+  "PVTRESD2": 5.199999999999999,
+  "CSTATE": 15.2,
+  "LANDLINE": 70.6,
+  "HHADULT": 156.79999999999998,
+  "GENHLTH": 499.19999999999993,
+  "PHYSHLTH": 563.2,
+  "MENTHLTH": 409.0,
+  "POORHLTH": 511.79999999999995,
+  "HLTHPLN1": 33.400000000000006,
+  "PERSDOC2": 229.0,
+  "MEDCOST": 131.6,
+  "CHECKUP1": 123.39999999999999,
+  "BPHIGH4": 125.80000000000001,
+  "BPMEDS": 261.8,
+  "BLOODCHO": 14.4,
+  "CHOLCHK": 281.6,
+  "TOLDHI2": 226.0,
+  "CVDSTRK3": 283.2,
+  "ASTHMA3": 26.599999999999998,
+  "ASTHNOW": 99.79999999999998,
+  "CHCSCNCR": 66.0,
+  "CHCOCNCR": 128.2,
+  "CHCCOPD1": 226.8,
+  "HAVARTH3": 33.0,
+  "ADDEPEV2": 98.19999999999999,
+  "CHCKIDNY": 112.60000000000002,
+  "DIABETE3": 105.2,
+  "DIABAGE2": 479.0,
+  "SEX": 301.2,
+  "MARITAL": 298.20000000000005,
+  "EDUCA": 201.8,
+  "RENTHOM1": 113.0,
+  "NUMHHOL2": 56.599999999999994,
+  "NUMPHON2": 32.4,
+  "CPDEMO1": 123.0,
+  "VETERAN3": 87.80000000000001,
+  "EMPLOY1": 250.2,
+  "CHILDREN": 75.6,
+  "INCOME2": 396.6,
+  "INTERNET": 156.6,
+  "PREGNANT": 18.599999999999998,
+  "QLACTLM2": 117.8,
+  "USEEQUIP": 88.0,
+  "BLIND": 80.4,
+  "DECIDE": 77.6,
+  "DIFFWALK": 123.2,
+  "DIFFDRES": 57.0,
+  "DIFFALON": 74.39999999999999,
+  "SMOKE100": 137.4,
+  "SMOKDAY2": 266.40000000000003,
+  "STOPSMK2": 128.4,
+  "LASTSMK2": 256.40000000000003,
+  "USENOW3": 37.00000000000001,
+  "ALCDAY5": 242.4,
+  "AVEDRNK2": 211.60000000000002,
+  "DRNK3GE5": 128.4,
+  "MAXDRNKS": 216.79999999999998,
+  "EXERANY2": 21.0,
+  "EXEROFT1": 391.0,
+  "EXEROFT2": 276.4,
+  "STRENGTH": 244.60000000000002,
+  "LMTJOIN3": 111.6,
+  "ARTHDIS2": 141.6,
+  "ARTHSOCL": 155.8,
+  "JOINPAIN": 422.2,
+  "SEATBELT": 123.0,
+  "FLUSHOT6": 89.4,
+  "IMFVPLAC": 373.8,
+  "PNEUVAC3": 253.8,
+  "HIVTST6": 77.2,
+  "WHRTST10": 252.0,
+  "PDIABTST": 105.19999999999999,
+  "PREDIAB1": 81.8,
+  "INSULIN": 72.39999999999999,
+  "BLDSUGAR": 138.60000000000002,
+  "FEETCHK2": 109.60000000000001,
+  "DOCTDIAB": 158.60000000000002,
+  "CHKHEMO3": 101.2,
+  "FEETCHK": 105.2,
+  "EYEEXAM": 86.0,
+  "DIABEYE": 54.80000000000001,
+  "DIABEDU": 34.4,
+  "CAREGIV1": 64.4,
+  "CRGVREL1": 61.0,
+  "CRGVLNG1": 55.599999999999994,
+  "CRGVHRS1": 37.4,
+  "CRGVPRB1": 52.0,
+  "CRGVPERS": 18.800000000000004,
+  "CRGVHOUS": 14.600000000000001,
+  "CRGVMST2": 29.199999999999996,
+  "CRGVEXPT": 92.00000000000001,
+  "VIDFCLT2": 1.6,
+  "VIREDIF3": 4.6,
+  "VIPRFVS2": 1.2000000000000002,
+  "VINOCRE2": 0.2,
+  "VIEYEXM2": 15.000000000000002,
+  "VIINSUR2": 3.0,
+  "VICTRCT4": 2.8,
+  "VIGLUMA2": 0.0,
+  "VIMACDG2": 0.6000000000000001,
+  "CIMEMLOS": 114.6,
+  "CDHOUSE": 42.0,
+  "CDASSIST": 47.6,
+  "CDHELP": 14.2,
+  "CDSOCIAL": 50.8,
+  "CDDISCUS": 22.0,
+  "WTCHSALT": 40.0,
+  "LONGWTCH": 143.8,
+  "DRADVISE": 156.79999999999998,
+  "ASTHMAGE": 15.4,
+  "ASATTACK": 0.2,
+  "ASERVIST": 0.4,
+  "ASDRVIST": 0.0,
+  "ASRCHKUP": 0.8,
+  "ASACTLIM": 0.2,
+  "ASYMPTOM": 1.4000000000000001,
+  "ASNOSLEP": 2.8,
+  "ASTHMED3": 0.2,
+  "ASINHALR": 0.0,
+  "HAREHAB1": 170.6,
+  "STREHAB1": 21.8,
+  "CVDASPRN": 110.60000000000001,
+  "ASPUNSAF": 85.4,
+  "RLIVPAIN": 16.4,
+  "RDUCHART": 34.199999999999996,
+  "RDUCSTRK": 14.999999999999998,
+  "ARTTODAY": 52.8,
+  "ARTHWGT": 26.2,
+  "ARTHEXER": 21.4,
+  "ARTHEDU": 25.8,
+  "TETANUS": 104.79999999999998,
+  "HPVADVC2": 10.6,
+  "HPVADSHT": 0.0,
+  "SHINGLE2": 47.4,
+  "HADMAM": 6.800000000000001,
+  "HOWLONG": 28.0,
+  "HADPAP2": 5.2,
+  "LASTPAP2": 23.6,
+  "HPVTEST": 18.6,
+  "HPLSTTST": 9.0,
+  "HADHYST2": 9.200000000000001,
+  "PROFEXAM": 6.4,
+  "LENGEXAM": 18.6,
+  "BLDSTOOL": 57.199999999999996,
+  "LSTBLDS3": 56.2,
+  "HADSIGM3": 42.2,
+  "HADSGCO1": 28.799999999999997,
+  "LASTSIG3": 105.2,
+  "PCPSAAD2": 9.200000000000001,
+  "PCPSADI1": 9.6,
+  "PCPSARE1": 8.600000000000001,
+  "PSATEST1": 4.4,
+  "PSATIME": 35.6,
+  "PCPSARS1": 5.4,
+  "PCPSADE1": 1.4,
+  "PCDMDECN": 0.0,
+  "SCNTMNY1": 147.0,
+  "SCNTMEL1": 98.0,
+  "SCNTPAID": 26.2,
+  "SCNTWRK1": 69.0,
+  "SCNTLPAD": 64.8,
+  "SCNTLWK1": 159.4,
+  "SXORIENT": 106.8,
+  "TRNSGNDR": 73.8,
+  "RCSGENDR": 22.599999999999998,
+  "RCSRLTN2": 47.6,
+  "CASTHDX2": 21.599999999999998,
+  "CASTHNO2": 1.7999999999999998,
+  "EMTSUPRT": 38.6,
+  "LSATISFY": 29.4,
+  "ADPLEASR": 43.0,
+  "ADDOWN": 39.4,
+  "ADSLEEP": 50.8,
+  "ADENERGY": 65.6,
+  "ADEAT1": 48.199999999999996,
+  "ADFAIL": 22.6,
+  "ADTHINK": 33.2,
+  "ADMOVE": 44.0,
+  "MISTMNT": 9.2,
+  "ADANXEV": 12.599999999999998,
+  "QSTLANG": 38.6,
+  "MSCODE": 276.6,
+  "_CHISPNC": 119.6,
+  "_CRACE1": 37.2,
+  "_CPRACE": 22.2,
+  "_DUALUSE": 90.20000000000002,
+  "_RFHLTH": 150.8,
+  "_HCVU651": 58.2,
+  "_RFHYPE5": 81.4,
+  "_CHOLCHK": 60.400000000000006,
+  "_RFCHOL": 225.4,
+  "_LTASTH1": 39.0,
+  "_CASTHM1": 42.99999999999999,
+  "_ASTHMS1": 44.8,
+  "_DRDXAR1": 35.400000000000006,
+  "_PRACE1": 90.80000000000001,
+  "_MRACE1": 91.19999999999999,
+  "_HISPANC": 27.799999999999997,
+  "_RACE": 165.8,
+  "_RACEG21": 50.4,
+  "_RACEGR3": 82.20000000000002,
+  "_RACE_G1": 179.60000000000002,
+  "_AGEG5YR": 225.6,
+  "_AGE65YR": 13.399999999999999,
+  "_AGE80": 617.4,
+  "_AGE_G": 85.39999999999999,
+  "HTIN4": 513.8,
+  "HTM4": 467.8,
+  "WTKG3": 798.8,
+  "_BMI5": 907.2,
+  "_BMI5CAT": 122.6,
+  "_RFBMI5": 22.4,
+  "_CHLDCNT": 39.199999999999996,
+  "_EDUCAG": 167.39999999999998,
+  "_INCOMG": 202.39999999999998,
+  "_SMOKER3": 85.4,
+  "_RFSMOK3": 45.6,
+  "DRNKANY5": 14.399999999999999,
+  "DROCDY3_": 165.8,
+  "_RFBING5": 20.6,
+  "_DRNKWEK": 286.20000000000005,
+  "_RFDRHV5": 11.2,
+  "FTJUDA1_": 448.4,
+  "FRUTDA1_": 501.0,
+  "BEANDAY_": 565.5999999999999,
+  "GRENDAY_": 581.6,
+  "ORNGDAY_": 530.4,
+  "VEGEDA1_": 515.2,
+  "_MISFRTN": 5.0,
+  "_MISVEGN": 10.8,
+  "_FRTRESP": 4.6,
+  "_VEGRESP": 4.6000000000000005,
+  "_FRUTSUM": 669.1999999999999,
+  "_VEGESUM": 880.8,
+  "_FRTLT1": 48.0,
+  "_VEGLT1": 32.6,
+  "_FRT16": 0.0,
+  "_VEG23": 0.0,
+  "_FRUITEX": 5.800000000000001,
+  "_VEGETEX": 5.6,
+  "_TOTINDA": 5.0,
+  "METVL11_": 227.39999999999998,
+  "METVL21_": 220.6,
+  "MAXVO2_": 888.5999999999999,
+  "FC60_": 622.8000000000001,
+  "ACTIN11_": 57.0,
+  "ACTIN21_": 49.8,
+  "PADUR1_": 327.4,
+  "PADUR2_": 257.79999999999995,
+  "PAFREQ1_": 239.2,
+  "PAFREQ2_": 167.2,
+  "_MINAC11": 372.6,
+  "_MINAC21": 256.6,
+  "STRFREQ_": 135.2,
+  "PAMISS1_": 7.199999999999999,
+  "PAMIN11_": 387.20000000000005,
+  "PAMIN21_": 245.79999999999995,
+  "PA1MIN_": 417.4,
+  "PAVIG11_": 187.79999999999998,
+  "PAVIG21_": 134.0,
+  "PA1VIGM_": 230.4,
+  "_PACAT1": 32.2,
+  "_PAINDX1": 13.4,
+  "_PA150R2": 14.8,
+  "_PA300R2": 14.4,
+  "_PA30021": 8.2,
+  "_PASTRNG": 17.400000000000002,
+  "_PAREC1": 51.800000000000004,
+  "_PASTAE1": 14.799999999999999,
+  "_LMTACT1": 88.2,
+  "_LMTWRK1": 95.6,
+  "_LMTSCL1": 109.80000000000001,
+  "_RFSEAT2": 18.400000000000002,
+  "_RFSEAT3": 33.4,
+  "_FLSHOT6": 102.8,
+  "_PNEUMO2": 104.6,
+  "_AIDTST3": 50.2,
+  "n_chronic": 513.4,
+  "n_disabilities": 360.2,
+  "n_missing": 453.79999999999995
+ },
+ "weights": {
+  "members": [
+   "wider networks, cosine LR decay",
+   "Gradient-boosted trees (NumPy)",
+   "Newton solver, lambda=1e-4 (logistic)"
+  ],
+  "grid": [
+   {
+    "weights": [
+     0.3,
+     0.7,
+     0.0
+    ],
+    "f1": 0.4480988907896915
+   },
+   {
+    "weights": [
+     0.5,
+     0.5,
+     0.0
+    ],
+    "f1": 0.44799633121568944
+   },
+   {
+    "weights": [
+     0.25,
+     0.75,
+     0.0
+    ],
+    "f1": 0.4478600402880874
+   },
+   {
+    "weights": [
+     0.35,
+     0.65,
+     0.0
+    ],
+    "f1": 0.44784031142585
+   },
+   {
+    "weights": [
+     0.15,
+     0.85,
+     0.0
+    ],
+    "f1": 0.44783265100716785
+   },
+   {
+    "weights": [
+     0.2,
+     0.8,
+     0.0
+    ],
+    "f1": 0.44778656722556587
+   },
+   {
+    "weights": [
+     0.45,
+     0.5,
+     0.05
+    ],
+    "f1": 0.4477797441335801
+   },
+   {
+    "weights": [
+     0.45,
+     0.55,
+     0.0
+    ],
+    "f1": 0.44774987130510174
+   },
+   {
+    "weights": [
+     0.4,
+     0.55,
+     0.05
+    ],
+    "f1": 0.44766423160902497
+   },
+   {
+    "weights": [
+     0.25,
+     0.7,
+     0.05
+    ],
+    "f1": 0.4476552179656539
+   },
+   {
+    "weights": [
+     0.3,
+     0.65,
+     0.05
+    ],
+    "f1": 0.4476443411624754
+   },
+   {
+    "weights": [
+     0.4,
+     0.6,
+     0.0
+    ],
+    "f1": 0.4476352028209272
+   },
+   {
+    "weights": [
+     0.55,
+     0.45,
+     0.0
+    ],
+    "f1": 0.44760946970726534
+   },
+   {
+    "weights": [
+     0.35,
+     0.55,
+     0.1
+    ],
+    "f1": 0.4476072161607432
+   },
+   {
+    "weights": [
+     0.35,
+     0.6,
+     0.05
+    ],
+    "f1": 0.4476009513812301
+   },
+   {
+    "weights": [
+     0.45,
+     0.45,
+     0.1
+    ],
+    "f1": 0.4475960060417307
+   },
+   {
+    "weights": [
+     0.55,
+     0.4,
+     0.05
+    ],
+    "f1": 0.447585362901599
+   },
+   {
+    "weights": [
+     0.6,
+     0.4,
+     0.0
+    ],
+    "f1": 0.4475652318431112
+   },
+   {
+    "weights": [
+     0.2,
+     0.75,
+     0.05
+    ],
+    "f1": 0.4475310785471213
+   },
+   {
+    "weights": [
+     0.5,
+     0.45,
+     0.05
+    ],
+    "f1": 0.4475228989770676
+   }
+  ]
+ },
+ "leakage": [
+  {
+   "label": "Wider networks without HAREHAB1",
+   "config": {
+    "model": "mlp",
+    "mlp": {
+     "hidden": 128,
+     "epochs": 6,
+     "lr": 0.001,
+     "dropout": 0.5,
+     "weight_decay": 0.0001,
+     "cosine": true
+    },
+    "n_nets": 5,
+    "max_nan": 1.0,
+    "engineered": true,
+    "exclude": [
+     "HAREHAB1"
+    ]
+   },
+   "f1_mean": 0.4368346049078973,
+   "f1_std": 0.0011707447354918888,
+   "oof_f1": 0.43661041716429444,
+   "oof_acc": 0.8778033431362092,
+   "threshold": 0.2149999999999999,
+   "minutes": 13.71220072110494
+  },
+  {
+   "label": "GBDT without HAREHAB1",
+   "config": {
+    "model": "gbdt",
+    "gbdt": {
+     "n_trees": 1000,
+     "learning_rate": 0.03,
+     "max_depth": 6,
+     "min_child_weight": 10.0,
+     "reg_lambda": 10.0,
+     "subsample": 0.7,
+     "colsample": 0.4,
+     "max_bins": 64
+    },
+    "n_models": 1,
+    "exclude": [
+     "HAREHAB1"
+    ]
+   },
+   "f1_mean": 0.4384243626812494,
+   "f1_std": 0.0023689201328727857,
+   "oof_f1": 0.43782953821194737,
+   "oof_acc": 0.8817255093178112,
+   "threshold": 0.22999999999999993,
+   "minutes": 40.30685175259908
+  },
+  {
+   "label": "Ensemble without HAREHAB1",
+   "config": {
+    "model": "ensemble",
+    "members": [
+     {
+      "model": "mlp",
+      "mlp": {
+       "hidden": 128,
+       "epochs": 6,
+       "lr": 0.001,
+       "dropout": 0.5,
+       "weight_decay": 0.0001,
+       "cosine": true
+      },
+      "n_nets": 5,
+      "max_nan": 1.0,
+      "engineered": true,
+      "exclude": [
+       "HAREHAB1"
+      ]
+     },
+     {
+      "model": "gbdt",
+      "gbdt": {
+       "n_trees": 1000,
+       "learning_rate": 0.03,
+       "max_depth": 6,
+       "min_child_weight": 10.0,
+       "reg_lambda": 10.0,
+       "subsample": 0.7,
+       "colsample": 0.4,
+       "max_bins": 64
+      },
+      "n_models": 1,
+      "exclude": [
+       "HAREHAB1"
+      ]
+     }
+    ],
+    "weights": [
+     0.5,
+     0.5
+    ]
+   },
+   "f1_mean": 0.4398642431768323,
+   "f1_std": 0.0017764242799225896,
+   "oof_f1": 0.4392162430782337,
+   "oof_acc": 0.8796349063647584,
+   "threshold": 0.21999999999999992,
+   "minutes": 0.008923840522766114
+  }
+ ],
+ "gbdt_trees_first_setting": {
+  "note": "first GBDT setting (learning_rate=0.05, min_child_weight=5, reg_lambda=5, colsample=0.5, otherwise as GBDT_SETTINGS; seed = fold index): out-of-fold F1 by number of trees",
+  "oof_f1": {
+   "50": 0.43448303923829157,
+   "100": 0.44115330520393814,
+   "150": 0.44398583261287894,
+   "200": 0.44467105729056017,
+   "250": 0.44526344526344525,
+   "300": 0.4463327243630596,
+   "350": 0.44600912362224804,
+   "400": 0.44662889518413595,
+   "450": 0.4465034568740791,
+   "500": 0.44660248205242364,
+   "550": 0.44619583379748246,
+   "600": 0.44584183095399954,
+   "650": 0.4455310825750489,
+   "700": 0.4453240418118467,
+   "750": 0.44494288102535523,
+   "800": 0.4448612461153019
+  }
+ },
+ "methods": {
+  "GD (MSE)": {
+   "f1_mean": 0.4263922821854275,
+   "f1_std": 0.0016772988235356934
+  },
+  "SGD (MSE)": {
+   "f1_mean": 0.39519837452634043,
+   "f1_std": 0.00603870446905218
+  },
+  "Least squares": {
+   "f1_mean": NaN,
+   "f1_std": NaN
+  },
+  "Ridge": {
+   "f1_mean": 0.4267080676575814,
+   "f1_std": 0.0018393058704419538
+  },
+  "Logistic": {
+   "f1_mean": 0.43219499476017853,
+   "f1_std": 0.0016491087603879415
+  },
+  "Reg. logistic": {
+   "f1_mean": 0.43219499476017853,
+   "f1_std": 0.0016491087603879415
+  }
+ }
+}
