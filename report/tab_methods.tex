@@ -1,0 +1,15 @@
+\begin{table}[t]
+\centering
+\caption{Required methods: mean 5-fold CV F1 on Table~\ref{tab:ablation} row-4 features (std $\le$0.006); $^\dagger$singular $X^\top X$.}
+\label{tab:methods}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+ & GD & SGD & LS & Ridge & LR & Reg-LR \\
+\midrule
+F1 & 0.4264 & 0.3952 & sing.$^\dagger$ & 0.4267 & 0.4322 & 0.4322 \\
+\bottomrule
+\end{tabular}
+\vspace{-3mm}
+\end{table}
